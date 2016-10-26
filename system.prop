@@ -95,3 +95,7 @@ persist.timed.enable=true
 # WiFi
 ro.disableWifiApFirmwareReload=true
 wifi.interface=wlan0
+
+# Device
+ro.product.model=Redmi 2
+persist.ims.volte=false
