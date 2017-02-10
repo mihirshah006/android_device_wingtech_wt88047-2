@@ -81,7 +81,8 @@ PRODUCT_COPY_FILES += \
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence \
-    persist.audio.fluence.voicerec=false
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=false
 
 # Gello
 PRODUCT_PACKAGES += \
@@ -100,11 +101,6 @@ PRODUCT_PACKAGES += \
 # Connectivity Engine support
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
-
-ifeq ($(BOARD_USES_QCNE),true)
-PRODUCT_PROPERTY_OVERRIDES +=
-    persist.cne.feature=4
-endif
 
 # Display
 PRODUCT_PACKAGES += \
@@ -239,8 +235,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8916 \
-    libmm-qcamera \
     Snap
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
 
 # Build libstlport for vendor blobs
 PRODUCT_PACKAGES += \
@@ -267,29 +266,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     librecovery_updater_cm
 
-# Connectivity Engine support (CNE)
-PRODUCT_PACKAGES += \
-    CNEService \
-    cneapiclient \
-    com.quicinc.cne \
-    init.cne.rc
-
-# DPM
-PRODUCT_PACKAGES += \
-    com.qti.dpmframework \
-    dpmapi
-
 # CNE and DPM symbol
 PRODUCT_PACKAGES += \
     libshim_parcel
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.cne.feature=4 \
     persist.data.target=dpm1 \
     persist.data.qmi.adb_logmask=0
 
 # Telephony-ext
-PRODUCT_PACKAGES += telephony-ext
+PRODUCT_PACKAGES += telephony-ext ims-ext-common
 PRODUCT_BOOT_JARS += telephony-ext
 
 # RIL
@@ -342,3 +328,17 @@ endif
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+
+# IMS
+PRODUCT_PACKAGES += \
+    ims \
+    imscmlibrary \
+    imssettings \
+    init.qti.ims.sh \
+    libshims_ims
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/ims/imscm.xml:system/etc/permissions/imscm.xml \
+    $(LOCAL_PATH)/configs/ims/ims.xml:system/etc/permissions/ims.xml \
+    $(LOCAL_PATH)/configs/ims/qti_permissions.xml:system/etc/permissions/qti_permissions.xml
+
