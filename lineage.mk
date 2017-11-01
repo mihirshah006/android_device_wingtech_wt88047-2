@@ -33,3 +33,6 @@ PRODUCT_MANUFACTURER := Wingtech
 PRODUCT_MODEL := Redmi 2
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+#official tag
+RELEASE_TYPE := COLT_OFFICIAL
